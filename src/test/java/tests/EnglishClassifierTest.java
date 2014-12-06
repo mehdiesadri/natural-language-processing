@@ -15,7 +15,7 @@ public class EnglishClassifierTest {
 
 	@Before
 	public void setUp() throws Exception {
-		EnglishClassifier.getInstance(.7, "src/main/resources//MASTER");
+		EnglishClassifier.getInstance(.7);
 	}
 
 	@Test

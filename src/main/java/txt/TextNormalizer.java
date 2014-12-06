@@ -6,13 +6,11 @@ import java.util.StringTokenizer;
 
 public class TextNormalizer {
 	private static TextNormalizer instance = null;
-	private static StopWordDetector swd;
-
 	private final static String DELIMITORS = "`~!#$%^&*()�?_+-=|}{[]\\/.,<>;:'\"”“»· –? \t\n";
 
-	public static TextNormalizer getInstance(String stopWordPath) {
+	public static TextNormalizer getInstance() {
 		if (instance == null)
-			instance = new TextNormalizer(stopWordPath);
+			instance = new TextNormalizer();
 		return instance;
 	}
 
@@ -27,8 +25,8 @@ public class TextNormalizer {
 		return result;
 	}
 
-	public TextNormalizer(String stopWordPath) {
-		swd = new StopWordDetector(stopWordPath);
+	public TextNormalizer() {
+		StopWordDetector.getInstance();
 	}
 
 	private static boolean isNumber(String input) {
@@ -50,7 +48,8 @@ public class TextNormalizer {
 				String term = token.replaceAll("'s", "").replaceAll("’t", "")
 						.replaceAll("’s", "").replaceAll("'t", "").trim();
 
-				if (swd.isStopWord(term) || term.length() < 2 || isNumber(term))
+				if (StopWordDetector.isStopWord(term) || term.length() < 2
+						|| isNumber(term))
 					continue;
 
 				term = term

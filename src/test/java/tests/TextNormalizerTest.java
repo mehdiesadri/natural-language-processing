@@ -13,7 +13,7 @@ public class TextNormalizerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		TextNormalizer.getInstance("src/main/resources/stopwords.txt");
+		TextNormalizer.getInstance();
 	}
 
 	@Test

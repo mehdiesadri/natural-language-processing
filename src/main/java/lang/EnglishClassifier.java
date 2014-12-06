@@ -3,6 +3,8 @@ package lang;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,28 +13,28 @@ public class EnglishClassifier implements LanguageClassifier {
 	private static ArrayList<String> dictionary;
 	private static double threshold;
 
-	public static EnglishClassifier getInstance(double th, String dicPath) {
+	public static EnglishClassifier getInstance(double th) {
 		if (instance == null)
-			instance = new EnglishClassifier(th, dicPath);
+			instance = new EnglishClassifier(th);
 		return instance;
 	}
 
-	public EnglishClassifier(double th, String dicPath) {
+	public EnglishClassifier(double th) {
 		dictionary = new ArrayList<String>();
 		threshold = th;
 
-		FileReader fileReader;
 		try {
-			fileReader = new FileReader(dicPath);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			InputStream in = EnglishClassifier.class
+					.getResourceAsStream("/MASTER");
+			BufferedReader bufferedReader = new BufferedReader(
+					new InputStreamReader(in));
 			String line = null;
 
 			while ((line = bufferedReader.readLine()) != null)
 				dictionary.add(line.toLowerCase().trim());
 
 			bufferedReader.close();
-			fileReader.close();
-
+			in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
